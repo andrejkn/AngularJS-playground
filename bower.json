@@ -1,0 +1,12 @@
+{
+  "name": "AmgularJS-playground",
+  "version": "0.0.1",
+  "dependencies": {
+    "angular-route": "~1.4.x",
+    "angular-ui-router": "~0.2.13"
+  },
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ]
+}
