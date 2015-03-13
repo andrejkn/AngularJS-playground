@@ -11,7 +11,7 @@ angular.module('uiRouterPlay1', ['ui.router', 'underscore']);
 angular.module('uiRouterPlay1')
 	.config(function($stateProvider, $urlRouterProvider) {
 
-		//$urlRouterProvider.otherwise("/contacts");
+		$urlRouterProvider.otherwise("/contacts");
 
 		$stateProvider
 			.state('contacts', {
