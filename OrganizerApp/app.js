@@ -6,9 +6,9 @@ angular.module('underscore', [])
     return window._;
   });
 
-angular.module('uiRouterPlay1', ['ui.router', 'underscore']);
+angular.module('OrganizerApp', ['ui.router', 'underscore', 'ngResource']);
 
-angular.module('uiRouterPlay1')
+angular.module('OrganizerApp')
   .config(function($stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider.otherwise("/contacts");
@@ -32,48 +32,43 @@ angular.module('uiRouterPlay1')
       });
   })
 
+  .factory('Contacts', function($resource) {
+    var dbName = 'organizer-app';
+    var collectionName = 'contacts';
+    var apiKey = '';
+
+    // https://api.mongolab.com/api/1/databases/{database}/collections/{collection}?apiKey=myAPIKey
+    var resourceUrl = 'https://api.mongolab.com/api/1/databases/' + dbName + '/collections/' + collectionName + '/:id';
+    return $resource(resourceUrl, {
+      apiKey: apiKey,
+      id:'@_id$.oid'
+    }, {
+      update: {method:'PUT'}
+    });
+  })
+
   .factory('contactsService', [function() {
     var contactsService = {};
 
-    var contacts = [
-      {
-        name: 'Alexander Graham',
-        phoneNumber: '287-145-2125'
-      },
-      {
-        name: 'Peter Griffin',
-        phoneNumber: '342-235-6655'
-      },
-      {
-        name: 'Dennis Rodmaan',
-        phoneNumber: '445-333-5454'
-      },
-      {
-        name: 'George Hramowski',
-        phoneNumber: '345-788-6346'
-      }
-    ];
-
-    contactsService.getContacts = function() {
+    contactsService.getContacts = function(Contacts) {
+      var contacts = Contacts.query();
       return contacts;
     };
 
     contactsService.findContacts = function(properties) {
-
       return _.findWhere(contacts, properties);
     };
 
     contactsService.isValidContact = function(contact) {
-      return (contact.hasOwnProperty('contactId') &&
-        contact.hasOwnProperty('name') &&
+      return (contact.hasOwnProperty('name') &&
         contact.hasOwnProperty('phoneNumber'));
     };
 
-    contactsService.addContact = function(contact) {
+    contactsService.addContact = function(contact, Contacts) {
       if( !contactsService.isValidContact(contact) ) {
         throw new Error('Error: Trying to add an invalid contact');
       }
-      contacts.push(contact);
+      Contacts.save(contact);
     };
 
     contactsService.modifyContact = function(properties, newContact) {
@@ -84,16 +79,17 @@ angular.module('uiRouterPlay1')
 
     return contactsService;
   }])
-  .controller('ContactsListCtrl', function(contactsService) {
+
+  .controller('ContactsListCtrl', function(contactsService, Contacts) {
     var vm = this;
-    vm.contacts = contactsService.getContacts();
+    vm.contacts = contactsService.getContacts(Contacts);
   })
-  .controller('ContactAddCtrl', function(contactsService) {
+  .controller('ContactAddCtrl', function(contactsService, Contacts) {
     var vm = this;
     vm.addContact = function () {
-      console.log('adding new contact ' + vm.newContact.contactId + ' ' + vm.newContact.name);
+      console.log('adding new contact ' + vm.newContact.name);
       if(contactsService.isValidContact(vm.newContact)) {
-        contactsService.addContact(vm.newContact);
+        contactsService.addContact(vm.newContact, Contacts);
       }
     };
   });
