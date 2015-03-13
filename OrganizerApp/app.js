@@ -37,22 +37,18 @@ angular.module('uiRouterPlay1')
 
 		var contacts = [
 			{
-				contactId: '1',
 				name: 'Alexander Graham',
 				phoneNumber: '287-145-2125'
 			},
 			{
-				contactId: '2',
 				name: 'Peter Griffin',
 				phoneNumber: '342-235-6655'
 			},
 			{
-				contactId: '3',
 				name: 'Dennis Rodmaan',
 				phoneNumber: '445-333-5454'
 			},
 			{
-				contactId: '4',
 				name: 'George Hramowski',
 				phoneNumber: '345-788-6346'
 			}
@@ -95,7 +91,6 @@ angular.module('uiRouterPlay1')
 	.controller('ContactAddCtrl', function(contactsService) {
 		var vm = this;
 		vm.addContact = function () {
-			vm.newContact.contactId = 23;
 			console.log('adding new contact ' + vm.newContact.contactId + ' ' + vm.newContact.name);
 			if(contactsService.isValidContact(vm.newContact)) {
 				contactsService.addContact(vm.newContact);

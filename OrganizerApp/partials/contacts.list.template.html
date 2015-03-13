@@ -1,0 +1,13 @@
+<h4>My Contacts</h4>
+<div ng-controller="ContactsListCtrl as contactsListCtrl">
+	<table class="table table-striped">
+		<tr>
+			<th>Name</th>
+			<th>Phone Number</th>
+		</tr>
+		<tr ng-repeat="contact in contactsListCtrl.contacts">
+			<td ng-bind="contact.name"></td>
+			<td ng-bind="contact.phoneNumber"></td>
+		</tr>
+	</table>
+</div>
