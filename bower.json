@@ -4,7 +4,8 @@
   "dependencies": {
     "angular-route": "~1.4.x",
     "angular-ui-router": "~0.2.13",
-    "bootstrap": "~3.3.2"
+    "bootstrap": "~3.3.2",
+    "underscore": "~1.8.2"
   },
   "ignore": [
     ".jshintrc",
