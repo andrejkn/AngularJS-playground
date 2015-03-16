@@ -4,21 +4,25 @@
 		<tr>
 			<th>Name</th>
 			<th>Phone Number</th>
+			<th>Action</th>
 		</tr>
 		<tr ng-repeat="contact in contactsListCtrl.contacts">
 			<td>
 				<div class="form-group">
 					<div class="">
-						<input type="text" class="form-control" id="contactName" placeholder="Peter Griffin" ng-model="contact.name" />
+						<input type="text" class="form-control" id="contactName" ng-model="contact.name"/>
 					</div>
 				</div>
 			</td>
 			<td>
 				<div class="form-group">
 					<div class="">
-						<input type="tel" class="form-control" id="contactPhoneNumber" placeholder="111-222-3344" ng-model="contact.phoneNumber" />
+						<input type="tel" class="form-control" id="contactPhoneNumber" ng-model="contact.phoneNumber"/>
 					</div>
 				</div>
+			</td>
+			<td>
+				<button class="btn btn-info" ng-click="contactsListCtrl.modifyContact(contact)">Save</button>
 			</td>
 		</tr>
 	</table>

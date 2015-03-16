@@ -2,6 +2,7 @@
   "name": "AmgularJS-playground",
   "version": "0.0.1",
   "dependencies": {
+    "angular": "~1.3.14",
     "angular-route": "~1.4.x",
     "angular-ui-router": "~0.2.13",
     "bootstrap": "~3.3.2",

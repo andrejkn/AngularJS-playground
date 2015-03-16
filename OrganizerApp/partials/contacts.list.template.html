@@ -1,13 +1,23 @@
 <h4>My Contacts</h4>
 <div ng-controller="ContactsListCtrl as contactsListCtrl">
+
 	<table class="table table-striped">
 		<tr>
 			<th>Name</th>
 			<th>Phone Number</th>
+			<th>Edit</th>
+			<th>Delete</th>
 		</tr>
 		<tr ng-repeat="contact in contactsListCtrl.contacts">
 			<td ng-bind="contact.name"></td>
 			<td ng-bind="contact.phoneNumber"></td>
+			<td>
+				<button class="btn btn-success glyphicon glyphicon-pencil" ng-click="contactsListCtrl.updateContactListView(contact)" ui-sref="contacts.edit"></button>
+			</td>
+			<td>
+				<button class="btn btn-danger glyphicon glyphicon-trash" ng-click="contactsListCtrl.deleteContact(contact)"></button>
+			</td>
 		</tr>
+
 	</table>
 </div>
